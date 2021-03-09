@@ -37,7 +37,7 @@ session_start();
             <?php
             if (isset($_SESSION["register_form_errors"]))
                 foreach ($_SESSION["register_form_errors"] as $key => $value) {
-                    echo "<p>" . $value . "</p>";
+                    echo '<p class="error">' . $value . "</p>";
                 }
             $_SESSION["register_form_errors"] = null;
             ?>

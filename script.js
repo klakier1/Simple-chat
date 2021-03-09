@@ -1,8 +1,20 @@
+/* GLOBAL VARIABLES */
+
+let _selcetedReciver = null;
+let _allRecivers = null;
+
+/**
+ * Get users list on load
+ */
 window.addEventListener("load", getUsersList);
 
+/**
+ * Listener for send button
+ */
 document
   .querySelector("#chat-send-button")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (event) {
+    event.preventDefault();
     if (_selcetedReciver) {
       const msgElement = document.querySelector("#chat-input-text");
       const msgText = msgElement.value;
@@ -13,6 +25,10 @@ document
     }
   });
 
+/**
+ * Listener for message text input.
+ * onKeyUp ENTER, performs click on send button
+ */
 document
   .querySelector("#chat-input-text")
   .addEventListener("keyup", function (event) {
@@ -25,9 +41,9 @@ document
     }
   });
 
-let _selcetedReciver = null;
-let _allRecivers = null;
-
+/**
+ * Check for new message
+ */
 window.setTimeout(checkNewMsg, 500);
 
 function checkNewMsg() {
@@ -45,18 +61,13 @@ function checkNewMsg() {
   }
 }
 
-function getUsersList() {
-  const req = new XMLHttpRequest();
-
-  req.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      renderUserList(JSON.parse(this.responseText));
-    }
-  };
-  req.open("GET", "./scripts/getUserList.php", true);
-  req.send();
-}
-
+/**
+ * Listener for click on user item,
+ * attached to every item in function renderUserList
+ * @param {*} element
+ * @param {*} event
+ * @param {*} user
+ */
 function selectReceiver(element, event, user) {
   if (_selcetedReciver) {
     const previousSelectedreceiver = document.querySelector(
@@ -73,6 +84,20 @@ function selectReceiver(element, event, user) {
   getConversation(_selcetedReciver.id);
 }
 
+/* AJAX */
+
+function getUsersList() {
+  const req = new XMLHttpRequest();
+
+  req.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      renderUserList(JSON.parse(this.responseText));
+    }
+  };
+  req.open("GET", "./scripts/getUserList.php", true);
+  req.send();
+}
+
 function sendMessage(reciverId, msg) {
   const req = new XMLHttpRequest();
   req.onreadystatechange = function () {
@@ -85,6 +110,10 @@ function sendMessage(reciverId, msg) {
   req.send(`receiverId=${reciverId}&message=${msg}`);
 }
 
+/**
+ * Gets whole conversation
+ * @param {int|string} receiverId
+ */
 function getConversation(receiverId) {
   const req = new XMLHttpRequest();
   req.onreadystatechange = function () {
@@ -100,7 +129,11 @@ function getConversation(receiverId) {
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   req.send(`receiverId=${receiverId}`);
 }
-
+/**
+ * Gets conversation from lastMessageId
+ * @param {int|string} receiverId
+ * @param {int|string} lastMessageId
+ */
 function getLastMessages(receiverId, lastMessageId) {
   const req = new XMLHttpRequest();
   req.onreadystatechange = function () {
@@ -115,6 +148,8 @@ function getLastMessages(receiverId, lastMessageId) {
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   req.send(`receiverId=${receiverId}&lastMsgId=${lastMessageId}`);
 }
+
+/* RENDERING */
 
 function renderConversation(messages) {
   messages.forEach((element) => {
@@ -131,7 +166,6 @@ function renderMessageDiv(message) {
   pMessage.setAttribute("class", "chat-message-text");
   if (message.sender_id == _currentUser.id) {
     item.setAttribute("class", "msgOutcoming");
-
     pUserName.innerHTML = `${_currentUser.login}`;
   } else {
     item.setAttribute("class", "msgIncoming");
