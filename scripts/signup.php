@@ -69,7 +69,7 @@ function validateInput($login, $email, $password, $password2, array $errors): ar
         $errors["password_incorrect"] = "Password contains not allowed charcters";
     }
     if ((strlen($password) < 8) || (strlen($password) > 20)) {
-        $errors["password_length"] = "Password must be between 3 and 20 characters long";
+        $errors["password_length"] = "Password must be between 8 and 20 characters long";
     }
     if ($password != $password2) {
         $errors["password_match"] = "Passwords doesn't match";
