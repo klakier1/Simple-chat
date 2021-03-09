@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: rgb(93, 93, 97);
+  scrollbar-color: rgba(0, 0, 0, 0.2) hsla(0, 0%, 100%, 0.1);
+  scrollbar-width: thin;
+}
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f8f1;
+}
+
+body > header {
+  background-color: rgb(223, 248, 186);
+  display: flex;
+  align-items: center;
+}
+
+body > main {
+  flex-grow: 1;
+  box-shadow: 0px 0px 20px #5e9364c2;
+  z-index: 1;
+}
+
+body > footer {
+  background-color: rgb(223, 248, 186);
+  font-size: 0.8rem;
+}
+
+.footer-signature {
+  width: fit-content;
+  margin: 0.5rem auto 0.5rem auto;
+}
+
+.footer-signature a {
+  cursor: pointer;
+}
+
+.footer-mailto {
+  text-decoration: none;
+  color: rgb(93, 93, 97);
+}
+.header-logo {
+  flex-grow: 1;
+  margin: 1rem;
+}
+.header-nav {
+  list-style: none;
+  margin: auto 2rem auto auto;
+  display: inline-flex;
+}
+.header-nav li {
+  padding: 0.5rem;
+}
+.header-nav li:first-child {
+  opacity: 0.5;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+section {
+  flex-basis: 300px;
+}
+
+section h1 {
+  margin: 1rem 0.5rem;
+}
+
+section.sign-in-form form,
+section.sign-up-form form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(136, 136, 136);
+}
+
+form input,
+form label {
+  margin: 0.6rem 0.6rem 0 0.6rem;
+}
+form input[type="submit"] {
+  margin: 2rem 0.6rem 0.6rem 0.6rem;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.616);
+  border: 1px solid rgb(136, 136, 136);
+}
+
+form input[type="submit"]:hover {
+  background-color: #c3fa70;
+}
+form input {
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.616);
+  border: 1px solid rgb(136, 136, 136);
+  padding: 0.4rem;
+}
+
+form input:active,
+form input:focus {
+  background-color: #c3fa7098;
+}
+
+.error {
+  margin: 0.2rem;
+  color: rgba(255, 6, 6, 0.842);
+}
